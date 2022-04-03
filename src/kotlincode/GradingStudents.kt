@@ -29,43 +29,22 @@ import kotlin.text.*
 fun gradingStudents(grades: Array<Int>): Array<Int> {
     // Write your code here
 
-    var fiveMultiples = mutableListOf<Int>()
-    for (i in 8..20) {
-        fiveMultiples.add(i * 5)
-    }
-    println(fiveMultiples)
 
-    var newGrades = mutableListOf<Int>()
+    val newGrades = mutableListOf<Int>()
+
 
     for (grade in grades) {
 
-        if (grade < 38) {
-            println("$grade FAILED")
+        if(grade < 38){
             newGrades.add(grade)
+            continue
         }
 
-        if (fiveMultiples.contains(grade)) {
-            println("$grade NO CHANGE")
+        val nextMultiple = getNextMultiple(grade)
+        if(nextMultiple - grade < 3){
+            newGrades.add(nextMultiple)
+        }else{
             newGrades.add(grade)
-        } else {
-
-            var nextMultipleOfFive = 0;
-            for(multiple in fiveMultiples){
-                if(grade < multiple){
-                    continue
-                }
-                if(grade > multiple){
-                    nextMultipleOfFive = multiple;
-                    break
-                }
-            }
-
-            if(nextMultipleOfFive - grade < 3){
-                newGrades.add(nextMultipleOfFive)
-            }else{
-                newGrades.add(grade)
-            }
-
         }
 
     }
@@ -73,7 +52,13 @@ fun gradingStudents(grades: Array<Int>): Array<Int> {
     return newGrades.toTypedArray();
 }
 
+fun getNextMultiple(value: Int): Int {
+    return value + (5 - value % 5)
+}
+
 fun main(args: Array<String>) {
+
+
     val gradesCount = readLine()!!.trim().toInt()
 
     val grades = Array<Int>(gradesCount, { 0 })

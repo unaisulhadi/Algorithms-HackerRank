@@ -9,6 +9,7 @@ import java.util.concurrent.*;
 import java.util.function.*;
 import java.util.regex.*;
 import java.util.stream.*;
+
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
@@ -26,17 +27,17 @@ public class Grading {
                 throw new RuntimeException(ex);
             }
         })
-            .map(String::trim)
-            .map(Integer::parseInt)
-            .collect(toList());
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .collect(toList());
 
         List<Integer> result = gradingStudents(grades);
 
         bufferedWriter.write(
-            result.stream()
-                .map(Object::toString)
-                .collect(joining("\n"))
-            + "\n"
+                result.stream()
+                        .map(Object::toString)
+                        .collect(joining("\n"))
+                        + "\n"
         );
 
         bufferedReader.close();
@@ -44,9 +45,28 @@ public class Grading {
     }
 
     public static List<Integer> gradingStudents(List<Integer> grades) {
-        // Write your code here
 
-        return Collections.emptyList();
+        List<Integer> newGrades = new ArrayList<>();
 
+        for (Integer grade : grades) {
+            if (grade < 38) {
+                newGrades.add(grade);
+                continue;
+            }
+
+            int nextMultiple = getNextMultiple(grade);
+            if (nextMultiple - grade < 3) {
+                newGrades.add(nextMultiple);
+            } else {
+                newGrades.add(grade);
+            }
+        }
+
+       return newGrades;
+
+    }
+
+    public static int getNextMultiple(int value) {
+        return value + (5 - value % 5);
     }
 }

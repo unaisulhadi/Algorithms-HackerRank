@@ -12,47 +12,6 @@ import java.util.stream.*;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-class Result {
-
-    /*
-     * Complete the 'countApplesAndOranges' function below.
-     *
-     * The function accepts following parameters:
-     *  1. INTEGER s
-     *  2. INTEGER t
-     *  3. INTEGER a
-     *  4. INTEGER b
-     *  5. INTEGER_ARRAY apples
-     *  6. INTEGER_ARRAY oranges
-     */
-
-    public static void countApplesAndOranges(int s, int t, int a, int b, List<Integer> apples, List<Integer> oranges) {
-    // Write your code here
-
-        int appleCount = 0,orangeCount = 0;
-
-
-        for (Integer apple : apples) {
-            int pos = a + apple;
-            if (pos >= s && pos <= t) {
-                appleCount++;
-            }
-        }
-
-        for (Integer orange : oranges) {
-            int pos = b + orange;
-            if (pos >= s && pos <= t) {
-                orangeCount++;
-            }
-        }
-
-        System.out.println(appleCount);
-        System.out.println(orangeCount);
-
-
-    }
-
-}
 
 public class ApplesAndOranges {
     public static void main(String[] args) throws IOException {
@@ -84,8 +43,34 @@ public class ApplesAndOranges {
             .map(Integer::parseInt)
             .collect(toList());
 
-        Result.countApplesAndOranges(s, t, a, b, apples, oranges);
+        countApplesAndOranges(s, t, a, b, apples, oranges);
 
         bufferedReader.close();
+    }
+
+    public static void countApplesAndOranges(int s, int t, int a, int b, List<Integer> apples, List<Integer> oranges) {
+        // Write your code here
+
+        int appleCount = 0,orangeCount = 0;
+
+
+        for (Integer apple : apples) {
+            int pos = a + apple;
+            if (pos >= s && pos <= t) {
+                appleCount++;
+            }
+        }
+
+        for (Integer orange : oranges) {
+            int pos = b + orange;
+            if (pos >= s && pos <= t) {
+                orangeCount++;
+            }
+        }
+
+        System.out.println(appleCount);
+        System.out.println(orangeCount);
+
+
     }
 }
